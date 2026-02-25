@@ -43,3 +43,11 @@ void NodeManager::DrawAllNodes()
 		mNodeList[i]->DrawNode();
 	}
 }
+
+void NodeManager::DrawAllConnections()
+{
+	for (int i = 0; i < mConnections.size(); i++)
+	{
+		DrawLineBezier(mConnections[i].startNode->mConnectorPos, mConnections[i].endNode->mConnectorPos, 2, WHITE);
+	}
+}

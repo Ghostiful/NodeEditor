@@ -57,7 +57,16 @@ int main() {
             else
             {
                 drawingConnection = false;
+                NodeConnection newConnection;
+                newConnection.startNode = selectedNode;
+                selectedNode = nodeManager->MouseOnConnector(GetMousePosition());
+                newConnection.endNode = selectedNode;
+                if (newConnection.startNode != nullptr && newConnection.endNode != nullptr)
+                {
+                    nodeManager->mConnections.push_back(newConnection);
+                }
                 selectedNode = nullptr;
+
             }
             
         }
@@ -66,10 +75,12 @@ int main() {
         BeginDrawing();
         ClearBackground(DARKGRAY);
         nodeManager->DrawAllNodes();
+        nodeManager->DrawAllConnections();
         if (drawingConnection && selectedNode != nullptr)
         {
             DrawLineBezier(selectedNode->mConnectorPos, GetMousePosition(), 2, WHITE);
         }
+        
         EndDrawing();
     }
 

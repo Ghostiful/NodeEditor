@@ -1,12 +1,33 @@
 #pragma once
 #include "raylib.h"
 #include <string>
+#include <vector>
 
 const float DEFAULT_NODE_HEIGHT = 100;
 const float DEF_NODE_WIDTH = 200;
 const float DEF_LABEL_HEIGHT = 25;
 const float CONNECTOR_RADIUS = 10;
 const float BORDER_WIDTH = 5;
+
+const enum NodeType
+{
+	BASE,
+	IO,
+	INPUT_ONLY
+};
+
+const enum ConnectorType
+{
+	INPUT,
+	OUTPUT
+};
+
+struct Connector
+{
+public:
+	Vector2 position;
+	ConnectorType type;
+};
 
 class INode
 {
@@ -15,6 +36,7 @@ public:
 	Rectangle* mBodyRect;
 	Rectangle* mLabelRect;
 	Vector2 mConnectorPos;
+	std::vector<Connector> mConnectorList;
 	std::string mName;
 
 
@@ -30,6 +52,7 @@ public:
 
 	// helpers
 	void DrawNode();
+	void DrawConnectors();
 	void MoveNode(Vector2 newPos);
 	bool MouseOnConnector(Vector2 mousePos);
 

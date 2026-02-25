@@ -68,7 +68,16 @@ void INode::DrawNode()
 {
 	DrawRectangleRec(*mBodyRect, BLACK);
 	DrawRectangleRec(*mLabelRect, LIGHTGRAY);
+	DrawText("New Node", mPosition.x + BORDER_WIDTH, mPosition.y + BORDER_WIDTH, 18, BLACK);
 	DrawCircleLines(mConnectorPos.x, mConnectorPos.y, CONNECTOR_RADIUS, WHITE);
+}
+
+void INode::DrawConnectors()
+{
+	for (int i = 0; i < mConnectorList.size(); i++)
+	{
+		DrawCircleLines(mConnectorList[i].position.x, mConnectorList[i].position.y, CONNECTOR_RADIUS, WHITE);
+	}
 }
 
 void INode::MoveNode(Vector2 newPos)
