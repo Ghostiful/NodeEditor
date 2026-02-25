@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include <vector>
 #include "../INode.h"
+#include "../NodeManager.h"
 
 int main() {
     // Initialization
@@ -9,38 +10,71 @@ int main() {
     const int screenHeight = 900;
 
     InitWindow(screenWidth, screenHeight, "Node Editor");
-    SetTargetFPS(60); // Set our game to run at 60 frames-per-second when possible
-    std::vector<INode*> nodeList;
+    SetTargetFPS(60);
+    NodeManager* nodeManager = new NodeManager();
+    bool draggingNode = false;
+    bool drawingConnection = false;
+    INode* selectedNode = nullptr;
 
-
-    // Main game loop
 	
 	// `WindowShouldClose` detects window close
     while (!WindowShouldClose()) {
         // Update
         
-        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) 
+        if (IsKeyPressed(KEY_N))
         {
             INode* newNode = new INode(GetMousePosition(), "New Node");
-            nodeList.push_back(newNode);
+            nodeManager->mNodeList.push_back(newNode);
+        }
+
+        if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
+        {
+            if (!draggingNode)
+            {
+                selectedNode = nodeManager->MouseOnNode(GetMousePosition());
+                if (selectedNode != nullptr)
+                {
+                    draggingNode = true;
+                }
+            }
+            else
+            {
+                selectedNode->MoveNode(GetMousePosition());
+            }
+        }
+        if (IsMouseButtonReleased(MOUSE_BUTTON_RIGHT))
+        {
+            selectedNode = nullptr;
+            draggingNode = false;
+        }
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+        {
+            if (!drawingConnection) 
+            {
+                selectedNode = nodeManager->MouseOnConnector(GetMousePosition());
+                drawingConnection = true;
+            }
+            else
+            {
+                drawingConnection = false;
+                selectedNode = nullptr;
+            }
+            
         }
 
         // Draw
         BeginDrawing();
         ClearBackground(DARKGRAY);
-        for (int i = 0; i < nodeList.size(); i++)
+        nodeManager->DrawAllNodes();
+        if (drawingConnection && selectedNode != nullptr)
         {
-            nodeList[i]->DrawNode();
+            DrawLineBezier(selectedNode->mConnectorPos, GetMousePosition(), 2, WHITE);
         }
         EndDrawing();
     }
 
     // De-Initialization
-    for (int i = 0; i < nodeList.size(); i++) 
-    {
-        delete nodeList[i];
-    }
-    nodeList.clear();
+    delete nodeManager;
 	
     CloseWindow(); // Close window and OpenGL context
 
