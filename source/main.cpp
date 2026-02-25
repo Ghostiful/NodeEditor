@@ -1,14 +1,16 @@
 #include "raylib.h"
+#include <vector>
+#include "../INode.h"
 
 int main() {
     // Initialization
 	
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 1600;
+    const int screenHeight = 900;
 
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - keyboard input");
-    Vector2 ballPosition = { (float)screenWidth/2, (float)screenHeight/2 };
+    InitWindow(screenWidth, screenHeight, "Node Editor");
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second when possible
+    std::vector<INode*> nodeList;
 
 
     // Main game loop
@@ -16,22 +18,29 @@ int main() {
 	// `WindowShouldClose` detects window close
     while (!WindowShouldClose()) {
         // Update
-
-        if (IsKeyDown(KEY_RIGHT)) ballPosition.x += 2.0f;
-        if (IsKeyDown(KEY_LEFT)) ballPosition.x -= 2.0f;
-        if (IsKeyDown(KEY_UP)) ballPosition.y -= 2.0f;
-        if (IsKeyDown(KEY_DOWN)) ballPosition.y += 2.0f;
+        
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) 
+        {
+            INode* newNode = new INode(GetMousePosition(), "New Node");
+            nodeList.push_back(newNode);
+        }
 
         // Draw
-		
         BeginDrawing();
-		ClearBackground(RED);
-        DrawText("move the ball with arrow keys", 10, 10, 20, GRAY);
-        DrawCircleV(ballPosition, 50, WHITE);
+        ClearBackground(DARKGRAY);
+        for (int i = 0; i < nodeList.size(); i++)
+        {
+            nodeList[i]->DrawNode();
+        }
         EndDrawing();
     }
 
     // De-Initialization
+    for (int i = 0; i < nodeList.size(); i++) 
+    {
+        delete nodeList[i];
+    }
+    nodeList.clear();
 	
     CloseWindow(); // Close window and OpenGL context
 
