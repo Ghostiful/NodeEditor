@@ -63,7 +63,11 @@ NodeSaveData NodeManager::ConvertToSaveData()
 		data.push_back(mNodeList[i]->mText);
 		for (int j = 0; j < mNodeList[i]->mChildren.size(); j++)
 		{
-			data.push_back(mNodeList[i]->mChildren[j]->mName);
+			LPOLESTR str;
+			HRESULT res = StringFromCLSID(mNodeList[i]->mChildren[j]->mInConnector.id, &str);
+			_bstr_t wrapper(str);
+			std::string s = (const char*)wrapper;
+			data.push_back(s);
 		}
 		data.push_back(NEXT_NODE_TOKEN);
 	}
@@ -102,6 +106,17 @@ void NodeManager::LoadSaveData(NodeSaveData data)
 		dataQ.pop();
 		nodeBuilder.BuildText(dataQ.front());
 		dataQ.pop();
+
+		while (dataQ.front() != NEXT_NODE_TOKEN)
+		{
+			std::string str = dataQ.front();
+			_bstr_t bstr(str.c_str());
+			const OLECHAR* oleStr = (const OLECHAR*)bstr;
+			GUID id;
+			HRESULT res = CLSIDFromString(oleStr, &id);
+			nodeBuilder.AddChildGUID(id);
+		}
+
 		mNodeList.push_back(nodeBuilder.BuildNode());
 		nodeBuilder.ClearNodePtr();
 	}

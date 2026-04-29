@@ -5,7 +5,7 @@
 #include "raylib.h"
 #include <string>
 #include <vector>
-#include <rpc.h>
+#include <combaseapi.h>
 
 
 const float DEFAULT_NODE_HEIGHT = 100;
@@ -32,6 +32,7 @@ struct Connector
 public:
 	Vector2 position;
 	ConnectorType type;
+	GUID id;
 };
 
 class INode
@@ -43,8 +44,11 @@ public:
 	Vector2 mConnectorPos;
 	Vector2 mInputPos;
 	std::vector<Connector> mConnectorList;
+	Connector mInConnector;
+	Connector mOutConnector;
 	std::string mName;
 	std::vector<INode*> mChildren;
+	std::vector<GUID> mChildGUIDs;
 	std::string mText;
 
 
@@ -102,6 +106,28 @@ public:
 	inline void BuildChildren(const std::vector<INode*> children)
 	{
 		mNode->mChildren = children;
+	}
+
+	inline void BuildChildren(const std::vector<GUID> children)
+	{
+		mNode->mChildGUIDs = children;
+	}
+
+	inline void AddChildGUID(const GUID id)
+	{
+		mNode->mChildGUIDs.push_back(id);
+	}
+
+	inline void BuildConnectors(const LPOLESTR inID, const LPOLESTR outID)
+	{
+		HRESULT res = CLSIDFromString(inID, &mNode->mInConnector.id);
+		HRESULT res2 = CLSIDFromString(outID, &mNode->mOutConnector.id);
+	}
+
+	inline void BuildConnectors()
+	{
+		HRESULT res = CoCreateGuid(&mNode->mInConnector.id);
+		HRESULT res2 = CoCreateGuid(&mNode->mOutConnector.id);
 	}
 
 	inline INode* BuildNode()

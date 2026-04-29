@@ -4,6 +4,7 @@
 #include <vector>
 #include <unordered_map>
 #include <queue>
+#include <comutil.h>
 
 
 const std::string NEXT_NODE_TOKEN = "--nnt--";

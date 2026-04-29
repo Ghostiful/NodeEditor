@@ -83,6 +83,10 @@ INode::INode(Vector2 position)
 	mConnectorPos.y = mPosition.y + DEF_LABEL_HEIGHT + DEFAULT_NODE_HEIGHT / 2;
 	mInputPos.x = mPosition.x + BORDER_WIDTH + CONNECTOR_RADIUS;
 	mInputPos.y = mPosition.y + DEF_LABEL_HEIGHT + DEFAULT_NODE_HEIGHT / 2;
+	mInConnector.position = mInputPos;
+	mOutConnector.position = mConnectorPos;
+	mInConnector.type = tINPUT;
+	mOutConnector.type = tOUTPUT;
 	mName = "New Node";
 }
 
