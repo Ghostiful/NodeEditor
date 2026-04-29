@@ -11,7 +11,7 @@ Implemented using Raylib in C++
 - `Left click` on a node's body to edit the text within the node
   - This will open a menu on the top right
   - Enter the new text for the node into the menu, then click `OK` to finalize the change
-  - Click `Cancel` to cancel any changes
+  - Click `Cancel` to cancel any changes and close the menu
 
 ### Saving/Loading Graphs
 - Type a file name into the top left input area
