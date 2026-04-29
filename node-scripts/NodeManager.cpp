@@ -36,6 +36,12 @@ INode* NodeManager::MouseOnConnector(Vector2 mousePos)
 	return nullptr;
 }
 
+INode* NodeManager::MouseOnInConnector(Vector2 mousePos)
+{
+
+	return nullptr;
+}
+
 void NodeManager::DrawAllNodes()
 {
 	for (int i = 0; i < mNodeList.size(); i++)
@@ -85,10 +91,10 @@ NodeSaveData NodeManager::ConvertToSaveData()
 	return data;
 }
 
-void NodeManager::LoadSaveData(NodeSaveData data)
+bool NodeManager::LoadSaveData(NodeSaveData data)
 {
 	if (data.empty())
-		return;
+		return false;
 
 	NodeBuilder nodeBuilder;
 
@@ -139,5 +145,8 @@ void NodeManager::LoadSaveData(NodeSaveData data)
 
 		mNodeList.push_back(nodeBuilder.BuildNode());
 		nodeBuilder.ClearNodePtr();
+		dataQ.pop();
 	}
+
+	return true;
 }

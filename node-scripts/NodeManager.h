@@ -36,6 +36,7 @@ public:
 	// helpers
 	INode* MouseOnNode(Vector2 mousePos);
 	INode* MouseOnConnector(Vector2 mousePos);
+	INode* MouseOnInConnector(Vector2 mousePos);
 
 	// drawing
 	void DrawAllNodes();
@@ -43,7 +44,7 @@ public:
 
 	// save/load help
 	NodeSaveData ConvertToSaveData();
-	void LoadSaveData(NodeSaveData data);
+	bool LoadSaveData(NodeSaveData data);
 
 };
 

@@ -19,6 +19,11 @@ int main() {
     INode* selectedNode = nullptr;
     NodeBuilder* nodeBuilder = new NodeBuilder();
 
+    if (nodeManager->LoadSaveData(saveLoadManager->LoadFromFile(DEFAULT_FILEPATH)))
+    {
+
+    }
+
 	
 	// `WindowShouldClose` detects window close
     while (!WindowShouldClose()) {
@@ -71,12 +76,24 @@ int main() {
                 drawingConnection = false;
                 NodeConnection newConnection;
                 newConnection.startNode = selectedNode;
+
+                INode* childNode = nodeManager->MouseOnConnector(GetMousePosition());
+                if (childNode != nullptr)
+                {
+                    selectedNode->mChildren.push_back(childNode);
+                    selectedNode->mChildGUIDs.push_back(childNode->mInConnector.id);
+                    childNode = nullptr;
+                }
+
                 selectedNode = nodeManager->MouseOnConnector(GetMousePosition());
                 newConnection.endNode = selectedNode;
                 if (newConnection.startNode != nullptr && newConnection.endNode != nullptr)
                 {
                     nodeManager->mConnections.push_back(newConnection);
                 }
+
+                
+
                 selectedNode = nullptr;
 
             }

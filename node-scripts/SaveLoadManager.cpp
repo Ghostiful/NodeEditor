@@ -28,11 +28,11 @@ NodeSaveData SaveLoadManager::LoadFromFile(std::string filePath)
 		return data;
 
 	std::string temp;
-	while (!f.eof()) 
+	do 
 	{
 		std::getline(f, temp);
 		data.push_back(temp);
-	}
+	} while (!f.eof());
 
 	f.close();
 	return data;
