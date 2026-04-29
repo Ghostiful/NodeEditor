@@ -3,6 +3,7 @@
 #include "INode.h"
 #include <vector>
 #include <unordered_map>
+#include <queue>
 
 
 const std::string NEXT_NODE_TOKEN = "--nnt--";
@@ -41,6 +42,7 @@ public:
 
 	// save/load help
 	NodeSaveData ConvertToSaveData();
+	void LoadSaveData(NodeSaveData data);
 
 };
 

@@ -17,6 +17,6 @@ public:
 
 	void SaveToFile(std::string filePath, NodeSaveData data);
 
-	void LoadFromFile(std::string filePath);
+	NodeSaveData LoadFromFile(std::string filePath);
 };
 

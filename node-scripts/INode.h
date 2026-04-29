@@ -1,7 +1,12 @@
 #pragma once
+
+#include <fix_win32_compatibility.h>
+
 #include "raylib.h"
 #include <string>
 #include <vector>
+#include <rpc.h>
+
 
 const float DEFAULT_NODE_HEIGHT = 100;
 const float DEF_NODE_WIDTH = 200;
@@ -48,7 +53,7 @@ public:
 	INode(Vector2 position, std::string name);
 	INode(float x, float y, std::string name);
 	INode(Vector2 position);
-	INode(float x, float y);
+	//INode(float x, float y);
 	INode(INode& node);
 	
 	// destructor
@@ -74,27 +79,32 @@ private:
 
 public:
 
-	NodeBuilder() 
+	inline NodeBuilder() 
 	{
 		mNode = nullptr;
 	}
 
-	void BuildPosition(const Vector2& pos)
+	inline void BuildPosition(const Vector2& pos)
 	{
 		mNode = new INode(pos);
 	}
 
-	void BuildName(const std::string& name) 
+	inline void BuildName(const std::string& name) 
 	{
 		mNode->mName = name;
 	}
 
-	void BuildText(const std::string& text) 
+	inline void BuildText(const std::string& text) 
 	{
 		mNode->mText = text;
 	}
 
-	INode* BuildNode()
+	inline void BuildChildren(const std::vector<INode*> children)
+	{
+		mNode->mChildren = children;
+	}
+
+	inline INode* BuildNode()
 	{
 		return mNode;
 	}
