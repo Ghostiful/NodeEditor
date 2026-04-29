@@ -46,10 +46,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="run-editor.bat">
+    <None Include="raylib_win64_msvc16\lib\raylib.dll" />
+    <None Include="build-and-run.bat">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="raylib_win64_msvc16\lib\raylib.dll" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="raylib_win64_msvc16\lib\raylib.lib" />

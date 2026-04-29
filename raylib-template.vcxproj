@@ -32,8 +32,8 @@
     <ClInclude Include="raylib_win64_msvc16\include\raygui.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="build-and-run.bat" />
     <None Include="raylib_win64_msvc16\lib\raylib.dll" />
-    <None Include="run-editor.bat" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="raylib_win64_msvc16\lib\raylib.lib" />
