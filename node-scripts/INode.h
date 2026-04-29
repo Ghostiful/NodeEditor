@@ -23,8 +23,8 @@ const enum NodeType
 
 const enum ConnectorType
 {
-	INPUT,
-	OUTPUT
+	tINPUT,
+	tOUTPUT
 };
 
 struct Connector

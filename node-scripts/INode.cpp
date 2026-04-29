@@ -4,12 +4,12 @@ INode::INode()
 {
 	mPosition.x = 0;
 	mPosition.y = 0;
-	mLabelRect = new rRectangle();
+	mLabelRect = new Rectangle();
 	mLabelRect->x = mPosition.x;
 	mLabelRect->y = mPosition.y;
 	mLabelRect->width = DEF_NODE_WIDTH;
 	mLabelRect->height = DEF_LABEL_HEIGHT;
-	mBodyRect = new rRectangle();
+	mBodyRect = new Rectangle();
 	mBodyRect->x = mPosition.x;
 	mBodyRect->y = mPosition.y + DEF_LABEL_HEIGHT;
 	mBodyRect->width = DEF_NODE_WIDTH;
@@ -26,12 +26,12 @@ INode::INode()
 INode::INode(Vector2 position, std::string name)
 {
 	mPosition = position;
-	mLabelRect = new rRectangle();
+	mLabelRect = new Rectangle();
 	mLabelRect->x = mPosition.x;
 	mLabelRect->y = mPosition.y;
 	mLabelRect->width = DEF_NODE_WIDTH;
 	mLabelRect->height = DEF_LABEL_HEIGHT;
-	mBodyRect = new rRectangle();
+	mBodyRect = new Rectangle();
 	mBodyRect->x = mPosition.x;
 	mBodyRect->y = mPosition.y + DEF_LABEL_HEIGHT;
 	mBodyRect->width = DEF_NODE_WIDTH;
@@ -48,12 +48,12 @@ INode::INode(float x, float y, std::string name)
 {
 	mPosition.x = x;
 	mPosition.y = y;
-	mLabelRect = new rRectangle();
+	mLabelRect = new Rectangle();
 	mLabelRect->x = mPosition.x;
 	mLabelRect->y = mPosition.y;
 	mLabelRect->width = DEF_NODE_WIDTH;
 	mLabelRect->height = DEF_LABEL_HEIGHT;
-	mBodyRect = new rRectangle();
+	mBodyRect = new Rectangle();
 	mBodyRect->x = mPosition.x;
 	mBodyRect->y = mPosition.y + DEF_LABEL_HEIGHT;
 	mBodyRect->width = DEF_NODE_WIDTH;
@@ -68,12 +68,12 @@ INode::INode(float x, float y, std::string name)
 INode::INode(Vector2 position)
 {
 	mPosition = position;
-	mLabelRect = new rRectangle();
+	mLabelRect = new Rectangle();
 	mLabelRect->x = mPosition.x;
 	mLabelRect->y = mPosition.y;
 	mLabelRect->width = DEF_NODE_WIDTH;
 	mLabelRect->height = DEF_LABEL_HEIGHT;
-	mBodyRect = new rRectangle();
+	mBodyRect = new Rectangle();
 	mBodyRect->x = mPosition.x;
 	mBodyRect->y = mPosition.y + DEF_LABEL_HEIGHT;
 	mBodyRect->width = DEF_NODE_WIDTH;
@@ -89,8 +89,8 @@ INode::INode(Vector2 position)
 INode::INode(INode& node) 
 {
 	mPosition = node.mPosition;
-	mLabelRect = new rRectangle(*node.mLabelRect);
-	mBodyRect = new rRectangle(*node.mBodyRect);
+	mLabelRect = new Rectangle(*node.mLabelRect);
+	mBodyRect = new Rectangle(*node.mBodyRect);
 	mConnectorPos = node.mConnectorPos;
 	mInputPos = node.mInputPos;
 	mName = node.mName;

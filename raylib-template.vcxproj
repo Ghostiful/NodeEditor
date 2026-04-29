@@ -28,6 +28,7 @@
     <ClInclude Include="node-scripts\INode.h" />
     <ClInclude Include="node-scripts\NodeManager.h" />
     <ClInclude Include="node-scripts\SaveLoadManager.h" />
+    <ClInclude Include="raylib_win64_msvc16\include\fix_win32_compatibility.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

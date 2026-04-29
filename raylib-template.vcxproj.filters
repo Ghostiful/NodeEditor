@@ -38,5 +38,8 @@
     <ClInclude Include="node-scripts\SaveLoadManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="raylib_win64_msvc16\include\fix_win32_compatibility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
