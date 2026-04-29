@@ -14,6 +14,7 @@ const float DEF_NODE_WIDTH = 200;
 const float DEF_LABEL_HEIGHT = 25;
 const float CONNECTOR_RADIUS = 10;
 const float N_BORDER_WIDTH = 5;
+const int MAX_NODE_BODY_CHARS = 60;
 
 //const enum NodeType
 //{
@@ -70,6 +71,9 @@ public:
 	/// helpers
 	bool GetConnectorFromGUID(GUID id, OUT Connector con);
 	void ReconnectAllChildren(std::vector<INode*> children);
+	bool MouseOnConnector(Vector2 mousePos);
+	bool MouseOnInConnector(Vector2 mousePos);
+	bool MouseOnBody(Vector2 mousePos);
 
 	// Drawing
 	void DrawNode();
@@ -78,8 +82,6 @@ public:
 
 	// Editing
 	void MoveNode(Vector2 newPos);
-	bool MouseOnConnector(Vector2 mousePos);
-	bool MouseOnInConnector(Vector2 mousePos);
 	void EditText(std::string newText);
 
 };

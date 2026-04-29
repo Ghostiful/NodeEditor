@@ -38,6 +38,7 @@ public:
 	// helpers
 	INode* MouseOnNode(Vector2 mousePos);
 	INode* MouseOnConnector(Vector2 mousePos);
+	bool MouseOnAnyConnector(Vector2 mousePos);
 	INode* MouseOnInConnector(Vector2 mousePos);
 	INode* GetNodeFromGUID(GUID id);
 	std::vector<INode*> GetChildListFromGUIDList(std::vector<GUID> idList);

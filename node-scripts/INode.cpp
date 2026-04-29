@@ -191,7 +191,13 @@ bool INode::MouseOnInConnector(Vector2 mousePos)
 	return false;
 }
 
+bool INode::MouseOnBody(Vector2 mousePos)
+{
+
+	return false;
+}
+
 void INode::EditText(std::string newText)
 {
-	
+	mText = newText;
 }

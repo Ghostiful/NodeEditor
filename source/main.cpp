@@ -27,9 +27,20 @@ int main() {
     fileInputRect.height = 200;
     std::string inputLabel = "Save/Load Graph";
     std::string inputMessage = "Enter a file name (without the extension)";
-    std::string textInputButtonText = "Save;Load";
-    char textToChange[25] = "graph-save";
-    bool flagT = false;
+    std::string fileInputButtonText = "Save;Load";
+    char fileNameEntry[25] = "graph-save";
+    bool flagT = true;
+
+    Rectangle nodeInputRect = Rectangle();
+    nodeInputRect.x = screenWidth - N_BORDER_WIDTH - 275;
+    nodeInputRect.y = N_BORDER_WIDTH;
+    nodeInputRect.width = 275;
+    nodeInputRect.height = 200;
+    std::string nInputLabel = "Change Node Text";
+    std::string nInputMessage = "Enter the new body text of the selected node";
+    std::string nodeInputButtonText = "OK;Cancel";
+    char nodeTextEntry[MAX_NODE_BODY_CHARS] = "Enter Text";
+    bool showNodeInputBox = false;
 
     if (nodeManager->LoadSaveData(saveLoadManager->LoadFromFile(DEFAULT_FILEPATH)))
     {
@@ -78,16 +89,18 @@ int main() {
         }
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         {
-            if (!drawingConnection) 
+            if (nodeManager->MouseOnAnyConnector(GetMousePosition()))
             {
-                selectedNode = nodeManager->MouseOnConnector(GetMousePosition());
-                drawingConnection = true;
+                if (!drawingConnection)
+                {
+                    selectedNode = nodeManager->MouseOnConnector(GetMousePosition());
+                    if (selectedNode != nullptr)
+                        drawingConnection = true;
+                }
             }
-            else
+            else if (drawingConnection)
             {
                 drawingConnection = false;
-                /*NodeConnection newConnection;
-                newConnection.startNode = selectedNode;*/
 
                 INode* childNode = nodeManager->MouseOnInConnector(GetMousePosition());
                 if (childNode != nullptr && selectedNode != nullptr)
@@ -97,17 +110,22 @@ int main() {
                     childNode = nullptr;
                 }
 
-                /*selectedNode = nodeManager->MouseOnConnector(GetMousePosition());
-                newConnection.endNode = selectedNode;
-                if (newConnection.startNode != nullptr && newConnection.endNode != nullptr)
-                {
-                    nodeManager->mConnections.push_back(newConnection);
-                }*/
-
-                
-
                 selectedNode = nullptr;
+            }
+            else if (!showNodeInputBox)
+            {
+                selectedNode = nodeManager->MouseOnNode(GetMousePosition());
+                if (selectedNode != nullptr)
+                {
+                    // open text change input box
 
+                    showNodeInputBox = true;
+
+                }
+                else 
+                {
+                    showNodeInputBox = false;
+                }
             }
             
         }
@@ -122,12 +140,27 @@ int main() {
             DrawLineBezier(selectedNode->mConnectorPos, GetMousePosition(), 2, WHITE);
         }
         
+        if (showNodeInputBox)
+        {
+            int res = GuiTextInputBox(nodeInputRect, nInputLabel.c_str(), nInputMessage.c_str(), nodeInputButtonText.c_str(), nodeTextEntry, MAX_NODE_BODY_CHARS, &flagT);
+            if (res == 1)
+                selectedNode->EditText(nodeTextEntry);
+            else if (res == 2)
+            {
+                selectedNode = nullptr;
+                showNodeInputBox = false;
+            }
+        }
+        else
+        {
+            int result = GuiTextInputBox(fileInputRect, inputLabel.c_str(), inputMessage.c_str(), fileInputButtonText.c_str(), fileNameEntry, 25, &flagT);
+            if (result == 1)
+                saveLoadManager->SaveToFile(fileNameEntry + DEFAULT_EXTENSION, nodeManager->ConvertToSaveData());
+            else if (result == 2)
+                nodeManager->LoadSaveData(saveLoadManager->LoadFromFile(fileNameEntry + DEFAULT_EXTENSION));
+        }
         
-        int result = GuiTextInputBox(fileInputRect, inputLabel.c_str(), inputMessage.c_str(), textInputButtonText.c_str(), textToChange, 25, &flagT);
-        if (result == 1)
-            saveLoadManager->SaveToFile(textToChange + DEFAULT_EXTENSION, nodeManager->ConvertToSaveData());
-        else if (result == 2)
-            nodeManager->LoadSaveData(saveLoadManager->LoadFromFile(textToChange + DEFAULT_EXTENSION));
+        
         
         
         EndDrawing();

@@ -37,6 +37,16 @@ INode* NodeManager::MouseOnConnector(Vector2 mousePos)
 	return nullptr;
 }
 
+bool NodeManager::MouseOnAnyConnector(Vector2 mousePos)
+{
+	for (auto n : mNodeList)
+	{
+		if (n->MouseOnConnector(mousePos))
+			return true;
+	}
+	return false;
+}
+
 INode* NodeManager::MouseOnInConnector(Vector2 mousePos)
 {
 	for (int i = 0; i < mNodeList.size(); i++)
