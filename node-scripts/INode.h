@@ -36,8 +36,11 @@ public:
 	Rectangle* mBodyRect;
 	Rectangle* mLabelRect;
 	Vector2 mConnectorPos;
+	Vector2 mInputPos;
 	std::vector<Connector> mConnectorList;
 	std::string mName;
+	std::vector<INode*> mChildren;
+	std::string mText;
 
 
 	// constructors
@@ -46,15 +49,64 @@ public:
 	INode(float x, float y, std::string name);
 	INode(Vector2 position);
 	INode(float x, float y);
+	INode(INode& node);
 	
 	// destructor
 	~INode();
 
-	// helpers
+	/// helpers
+
+	// Drawing
 	void DrawNode();
 	void DrawConnectors();
+
+	// Editing
 	void MoveNode(Vector2 newPos);
 	bool MouseOnConnector(Vector2 mousePos);
+	void EditText(std::string newText);
 
+};
+
+class NodeBuilder 
+{
+private:
+	INode* mNode;
+
+public:
+
+	NodeBuilder() 
+	{
+		mNode = nullptr;
+	}
+
+	//void BuildStarterNode()
+	//{
+	//	mNode = new INode();
+	//}
+
+	void BuildPosition(const Vector2& pos)
+	{
+		mNode = new INode(pos);
+	}
+
+	void BuildName(const std::string& name) 
+	{
+		mNode->mName = name;
+	}
+
+	void BuildText(const std::string& text) 
+	{
+		mNode->mText = text;
+	}
+
+	INode* BuildNode()
+	{
+		return mNode;
+	}
+
+	void ClearNodePtr()
+	{
+		mNode = nullptr;
+	}
 };
 

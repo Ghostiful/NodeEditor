@@ -18,18 +18,24 @@
     <ClCompile Include="source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NodeManager.cpp">
+    <ClCompile Include="node-scripts\NodeManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="INode.cpp">
+    <ClCompile Include="node-scripts\INode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="node-scripts\SaveLoadManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="NodeManager.h">
+    <ClInclude Include="node-scripts\NodeManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="INode.h">
+    <ClInclude Include="node-scripts\INode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="node-scripts\SaveLoadManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

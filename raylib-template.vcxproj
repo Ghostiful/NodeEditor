@@ -19,13 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="INode.cpp" />
-    <ClCompile Include="NodeManager.cpp" />
+    <ClCompile Include="node-scripts\INode.cpp" />
+    <ClCompile Include="node-scripts\NodeManager.cpp" />
+    <ClCompile Include="node-scripts\SaveLoadManager.cpp" />
     <ClCompile Include="source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="INode.h" />
-    <ClInclude Include="NodeManager.h" />
+    <ClInclude Include="node-scripts\INode.h" />
+    <ClInclude Include="node-scripts\NodeManager.h" />
+    <ClInclude Include="node-scripts\SaveLoadManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

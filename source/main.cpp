@@ -1,7 +1,7 @@
 #include "raylib.h"
 #include <vector>
-#include "../INode.h"
-#include "../NodeManager.h"
+#include "../node-scripts/INode.h"
+#include "../node-scripts/NodeManager.h"
 
 int main() {
     // Initialization
@@ -15,6 +15,7 @@ int main() {
     bool draggingNode = false;
     bool drawingConnection = false;
     INode* selectedNode = nullptr;
+    NodeBuilder* nodeBuilder = new NodeBuilder();
 
 	
 	// `WindowShouldClose` detects window close
@@ -23,8 +24,16 @@ int main() {
         
         if (IsKeyPressed(KEY_N))
         {
-            INode* newNode = new INode(GetMousePosition(), "New Node");
+            nodeBuilder->BuildPosition(GetMousePosition());
+            nodeBuilder->BuildName("New Node");
+            nodeBuilder->BuildText("Body Text");
+
+            INode* newNode = nodeBuilder->BuildNode();
+            nodeBuilder->ClearNodePtr();
+
+
             nodeManager->mNodeList.push_back(newNode);
+            newNode = nullptr;
         }
 
         if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
@@ -86,6 +95,7 @@ int main() {
 
     // De-Initialization
     delete nodeManager;
+    delete nodeBuilder;
 	
     CloseWindow(); // Close window and OpenGL context
 

@@ -16,7 +16,10 @@ INode::INode()
 	mBodyRect->height = DEFAULT_NODE_HEIGHT;
 	mConnectorPos.x = mPosition.x + DEF_NODE_WIDTH - BORDER_WIDTH - CONNECTOR_RADIUS;
 	mConnectorPos.y = mPosition.y + DEF_LABEL_HEIGHT + DEFAULT_NODE_HEIGHT / 2;
+	mInputPos.x = mPosition.x + BORDER_WIDTH + CONNECTOR_RADIUS;
+	mInputPos.y = mPosition.y + DEF_LABEL_HEIGHT + DEFAULT_NODE_HEIGHT / 2;
 	mName = "New Node";
+	mText = "Body Text";
 
 }
 
@@ -36,6 +39,8 @@ INode::INode(Vector2 position, std::string name)
 	mConnectorPos = position;
 	mConnectorPos.x = mPosition.x + DEF_NODE_WIDTH - BORDER_WIDTH - CONNECTOR_RADIUS;
 	mConnectorPos.y = mPosition.y + DEF_LABEL_HEIGHT + DEFAULT_NODE_HEIGHT / 2;
+	mInputPos.x = mPosition.x + BORDER_WIDTH + CONNECTOR_RADIUS;
+	mInputPos.y = mPosition.y + DEF_LABEL_HEIGHT + DEFAULT_NODE_HEIGHT / 2;
 	mName = name;
 }
 
@@ -55,7 +60,41 @@ INode::INode(float x, float y, std::string name)
 	mBodyRect->height = DEFAULT_NODE_HEIGHT;
 	mConnectorPos.x = mPosition.x + DEF_NODE_WIDTH - BORDER_WIDTH - CONNECTOR_RADIUS;
 	mConnectorPos.y = mPosition.y + DEF_LABEL_HEIGHT + DEFAULT_NODE_HEIGHT / 2;
+	mInputPos.x = mPosition.x + BORDER_WIDTH + CONNECTOR_RADIUS;
+	mInputPos.y = mPosition.y + DEF_LABEL_HEIGHT + DEFAULT_NODE_HEIGHT / 2;
 	mName = name;
+}
+
+INode::INode(Vector2 position)
+{
+	mPosition = position;
+	mLabelRect = new Rectangle();
+	mLabelRect->x = mPosition.x;
+	mLabelRect->y = mPosition.y;
+	mLabelRect->width = DEF_NODE_WIDTH;
+	mLabelRect->height = DEF_LABEL_HEIGHT;
+	mBodyRect = new Rectangle();
+	mBodyRect->x = mPosition.x;
+	mBodyRect->y = mPosition.y + DEF_LABEL_HEIGHT;
+	mBodyRect->width = DEF_NODE_WIDTH;
+	mBodyRect->height = DEFAULT_NODE_HEIGHT;
+	mConnectorPos = position;
+	mConnectorPos.x = mPosition.x + DEF_NODE_WIDTH - BORDER_WIDTH - CONNECTOR_RADIUS;
+	mConnectorPos.y = mPosition.y + DEF_LABEL_HEIGHT + DEFAULT_NODE_HEIGHT / 2;
+	mInputPos.x = mPosition.x + BORDER_WIDTH + CONNECTOR_RADIUS;
+	mInputPos.y = mPosition.y + DEF_LABEL_HEIGHT + DEFAULT_NODE_HEIGHT / 2;
+	mName = "New Node";
+}
+
+INode::INode(INode& node) 
+{
+	mPosition = node.mPosition;
+	mLabelRect = new Rectangle(*node.mLabelRect);
+	mBodyRect = new Rectangle(*node.mBodyRect);
+	mConnectorPos = node.mConnectorPos;
+	mInputPos = node.mInputPos;
+	mName = node.mName;
+	mText = node.mText;
 }
 
 INode::~INode()
@@ -68,8 +107,12 @@ void INode::DrawNode()
 {
 	DrawRectangleRec(*mBodyRect, BLACK);
 	DrawRectangleRec(*mLabelRect, LIGHTGRAY);
-	DrawText("New Node", mPosition.x + BORDER_WIDTH, mPosition.y + BORDER_WIDTH, 18, BLACK);
+	DrawText(mName.c_str(), mPosition.x + BORDER_WIDTH, mPosition.y + BORDER_WIDTH, 18, BLACK);
 	DrawCircleLines(mConnectorPos.x, mConnectorPos.y, CONNECTOR_RADIUS, WHITE);
+	DrawCircleLines(mInputPos.x, mInputPos.y, CONNECTOR_RADIUS, WHITE);
+
+	// Text Field
+	DrawText(mText.c_str(), mPosition.x + BORDER_WIDTH, mPosition.y + DEF_LABEL_HEIGHT + BORDER_WIDTH, 18, WHITE);
 }
 
 void INode::DrawConnectors()
@@ -89,6 +132,8 @@ void INode::MoveNode(Vector2 newPos)
 	mBodyRect->y = newPos.y + mLabelRect->height;
 	mConnectorPos.x += newPos.x - mPosition.x;
 	mConnectorPos.y += newPos.y - mPosition.y;
+	mInputPos.x += newPos.x - mPosition.x;
+	mInputPos.y += newPos.y - mPosition.y;
 	mPosition = newPos;
 }
 
@@ -99,4 +144,9 @@ bool INode::MouseOnConnector(Vector2 mousePos)
 		return true;
 	}
 	return false;
+}
+
+void INode::EditText(std::string newText)
+{
+
 }
