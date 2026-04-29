@@ -1,6 +1,8 @@
 # Node-based Graph Editor
 Implemented using Raylib in C++
 
+![Editor Running](./ReadMeImages/image1.png)
+
 ## Usage
 ### Controls
 - Press `N` to create a new node at the current mouse position
