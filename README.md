@@ -17,6 +17,5 @@ Implemented using Raylib in C++
 - Type a file name into the top left input area
 - Click `Save` to save the current graph with that file name or `Load` to load a graph with that file name.
 
-### Building from command line
-You don't have to open VS to build the project. Just run `msbuild raylib-template.sln`.\
-**Warning**: you **have** to use the `Developer command prompt for VS`, otherwise this won't work!
+## Building and Running the Editor
+You don't have to open VS to build the project. Just run `build-and-run.bat`.
