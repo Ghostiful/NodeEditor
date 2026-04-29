@@ -2,6 +2,7 @@
 #include <vector>
 #include "../node-scripts/INode.h"
 #include "../node-scripts/NodeManager.h"
+#include "../node-scripts/SaveLoadManager.h"
 
 int main() {
     // Initialization
@@ -12,6 +13,7 @@ int main() {
     InitWindow(screenWidth, screenHeight, "Node Editor");
     SetTargetFPS(60);
     NodeManager* nodeManager = new NodeManager();
+    SaveLoadManager* saveLoadManager = new SaveLoadManager();
     bool draggingNode = false;
     bool drawingConnection = false;
     INode* selectedNode = nullptr;
@@ -93,9 +95,12 @@ int main() {
         EndDrawing();
     }
 
+    saveLoadManager->SaveToFile(DEFAULT_FILEPATH, nodeManager->ConvertToSaveData());
+
     // De-Initialization
     delete nodeManager;
     delete nodeBuilder;
+    delete saveLoadManager;
 	
     CloseWindow(); // Close window and OpenGL context
 

@@ -79,11 +79,6 @@ public:
 		mNode = nullptr;
 	}
 
-	//void BuildStarterNode()
-	//{
-	//	mNode = new INode();
-	//}
-
 	void BuildPosition(const Vector2& pos)
 	{
 		mNode = new INode(pos);

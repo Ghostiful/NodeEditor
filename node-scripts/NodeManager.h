@@ -5,7 +5,9 @@
 #include <unordered_map>
 
 
+const std::string NEXT_NODE_TOKEN = "--nnt--";
 
+typedef std::vector<std::string> NodeSaveData;
 
 struct NodeConnection
 {
@@ -22,8 +24,6 @@ class NodeManager
 public:
 	std::vector<INode*> mNodeList;
 	std::vector<NodeConnection> mConnections;
-	
-
 
 	// constructors
 	NodeManager();
@@ -34,8 +34,13 @@ public:
 	// helpers
 	INode* MouseOnNode(Vector2 mousePos);
 	INode* MouseOnConnector(Vector2 mousePos);
+
+	// drawing
 	void DrawAllNodes();
 	void DrawAllConnections();
+
+	// save/load help
+	NodeSaveData ConvertToSaveData();
 
 };
 

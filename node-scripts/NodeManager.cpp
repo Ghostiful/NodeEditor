@@ -51,3 +51,21 @@ void NodeManager::DrawAllConnections()
 		DrawLineBezier(mConnections[i].startNode->mConnectorPos, mConnections[i].endNode->mConnectorPos, 2, WHITE);
 	}
 }
+
+NodeSaveData NodeManager::ConvertToSaveData()
+{
+	NodeSaveData data;
+	for (int i = 0; i < mNodeList.size(); i++)
+	{
+		data.push_back(mNodeList[i]->mName);
+		data.push_back(mNodeList[i]->mText);
+		data.push_back(std::to_string(mNodeList[i]->mPosition.x));
+		data.push_back(std::to_string(mNodeList[i]->mPosition.y));
+		for (int j = 0; j < mNodeList[i]->mChildren.size(); j++)
+		{
+			data.push_back(mNodeList[i]->mChildren[j]->mName);
+		}
+		data.push_back(NEXT_NODE_TOKEN);
+	}
+	return data;
+}
