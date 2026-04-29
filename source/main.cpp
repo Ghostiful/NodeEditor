@@ -74,23 +74,23 @@ int main() {
             else
             {
                 drawingConnection = false;
-                NodeConnection newConnection;
-                newConnection.startNode = selectedNode;
+                /*NodeConnection newConnection;
+                newConnection.startNode = selectedNode;*/
 
-                INode* childNode = nodeManager->MouseOnConnector(GetMousePosition());
-                if (childNode != nullptr)
+                INode* childNode = nodeManager->MouseOnInConnector(GetMousePosition());
+                if (childNode != nullptr && selectedNode != nullptr)
                 {
                     selectedNode->mChildren.push_back(childNode);
                     selectedNode->mChildGUIDs.push_back(childNode->mInConnector.id);
                     childNode = nullptr;
                 }
 
-                selectedNode = nodeManager->MouseOnConnector(GetMousePosition());
+                /*selectedNode = nodeManager->MouseOnConnector(GetMousePosition());
                 newConnection.endNode = selectedNode;
                 if (newConnection.startNode != nullptr && newConnection.endNode != nullptr)
                 {
                     nodeManager->mConnections.push_back(newConnection);
-                }
+                }*/
 
                 
 

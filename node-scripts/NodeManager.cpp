@@ -38,7 +38,13 @@ INode* NodeManager::MouseOnConnector(Vector2 mousePos)
 
 INode* NodeManager::MouseOnInConnector(Vector2 mousePos)
 {
-
+	for (int i = 0; i < mNodeList.size(); i++)
+	{
+		if (mNodeList[i]->MouseOnInConnector(mousePos))
+		{
+			return mNodeList[i];
+		}
+	}
 	return nullptr;
 }
 
@@ -52,9 +58,14 @@ void NodeManager::DrawAllNodes()
 
 void NodeManager::DrawAllConnections()
 {
-	for (int i = 0; i < mConnections.size(); i++)
+	/*for (int i = 0; i < mConnections.size(); i++)
 	{
 		DrawLineBezier(mConnections[i].startNode->mConnectorPos, mConnections[i].endNode->mConnectorPos, 2, WHITE);
+	}*/
+
+	for (auto node : mNodeList)
+	{
+		node->DrawConnections();
 	}
 }
 

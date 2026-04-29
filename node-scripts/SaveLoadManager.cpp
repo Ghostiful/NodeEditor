@@ -31,6 +31,8 @@ NodeSaveData SaveLoadManager::LoadFromFile(std::string filePath)
 	do 
 	{
 		std::getline(f, temp);
+		if (temp == "")
+			break;
 		data.push_back(temp);
 	} while (!f.eof());
 

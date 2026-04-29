@@ -107,6 +107,31 @@ INode::~INode()
 	delete mBodyRect;
 }
 
+bool INode::GetConnectorFromGUID(GUID id, OUT Connector con)
+{
+	if (mInConnector.id == id)
+	{
+		con = mInConnector;
+		return true;
+	}
+	if (mOutConnector.id == id)
+	{
+		con = mOutConnector;
+		return true;
+	}
+	return false;
+}
+
+void INode::ReconnectAllChildren()
+{
+	if (!HasChild())
+		return;
+	for (auto id : mChildGUIDs)
+	{
+
+	}
+}
+
 void INode::DrawNode()
 {
 	DrawRectangleRec(*mBodyRect, BLACK);
@@ -124,6 +149,17 @@ void INode::DrawConnectors()
 	for (int i = 0; i < mConnectorList.size(); i++)
 	{
 		DrawCircleLines(mConnectorList[i].position.x, mConnectorList[i].position.y, CONNECTOR_RADIUS, WHITE);
+	}
+}
+
+void INode::DrawConnections()
+{
+	if (!HasChild())
+		return;
+
+	for (auto node : mChildren)
+	{
+		DrawLineBezier(mConnectorPos, node->mInputPos, 2, WHITE);
 	}
 }
 
@@ -150,7 +186,16 @@ bool INode::MouseOnConnector(Vector2 mousePos)
 	return false;
 }
 
+bool INode::MouseOnInConnector(Vector2 mousePos)
+{
+	if (mousePos.x >= mInputPos.x - CONNECTOR_RADIUS && mousePos.x <= mInputPos.x + CONNECTOR_RADIUS && mousePos.y >= mInputPos.y - CONNECTOR_RADIUS && mousePos.y <= mInputPos.y + CONNECTOR_RADIUS)
+	{
+		return true;
+	}
+	return false;
+}
+
 void INode::EditText(std::string newText)
 {
-	//CoCreate
+	
 }

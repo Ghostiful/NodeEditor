@@ -51,6 +51,9 @@ public:
 	std::vector<GUID> mChildGUIDs;
 	std::string mText;
 
+	// inline
+	inline bool HasChild() const { return !mChildren.empty(); }
+	inline GUID GetInputGUID() const { return mInConnector.id; }
 
 	// constructors
 	INode();
@@ -64,14 +67,18 @@ public:
 	~INode();
 
 	/// helpers
+	bool GetConnectorFromGUID(GUID id, OUT Connector con);
+	void ReconnectAllChildren();
 
 	// Drawing
 	void DrawNode();
 	void DrawConnectors();
+	void DrawConnections();
 
 	// Editing
 	void MoveNode(Vector2 newPos);
 	bool MouseOnConnector(Vector2 mousePos);
+	bool MouseOnInConnector(Vector2 mousePos);
 	void EditText(std::string newText);
 
 };
