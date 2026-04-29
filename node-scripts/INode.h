@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <combaseapi.h>
+#include "raygui.h"
 
 
 const float DEFAULT_NODE_HEIGHT = 100;

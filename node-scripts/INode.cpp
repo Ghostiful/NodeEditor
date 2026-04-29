@@ -124,6 +124,7 @@ bool INode::GetConnectorFromGUID(GUID id, OUT Connector con)
 
 void INode::ReconnectAllChildren(std::vector<INode*> children)
 {
+	mChildren.clear();
 	mChildren = children;
 }
 

@@ -6,6 +6,7 @@
 #include "NodeManager.h"
 
 const std::string DEFAULT_FILEPATH = "graph-save.txt";
+const std::string DEFAULT_EXTENSION = ".txt";
 
 class SaveLoadManager
 {

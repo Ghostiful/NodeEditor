@@ -20,6 +20,16 @@ int main() {
     bool drawingConnection = false;
     INode* selectedNode = nullptr;
     NodeBuilder* nodeBuilder = new NodeBuilder();
+    Rectangle fileInputRect = Rectangle();
+    fileInputRect.x = N_BORDER_WIDTH;
+    fileInputRect.y = N_BORDER_WIDTH;
+    fileInputRect.width = 275;
+    fileInputRect.height = 200;
+    std::string inputLabel = "Save/Load Graph";
+    std::string inputMessage = "Enter a file name (without the extension)";
+    std::string textInputButtonText = "Save;Load";
+    char textToChange[25] = "graph-save";
+    bool flagT = false;
 
     if (nodeManager->LoadSaveData(saveLoadManager->LoadFromFile(DEFAULT_FILEPATH)))
     {
@@ -112,10 +122,18 @@ int main() {
             DrawLineBezier(selectedNode->mConnectorPos, GetMousePosition(), 2, WHITE);
         }
         
+        
+        int result = GuiTextInputBox(fileInputRect, inputLabel.c_str(), inputMessage.c_str(), textInputButtonText.c_str(), textToChange, 25, &flagT);
+        if (result == 1)
+            saveLoadManager->SaveToFile(textToChange + DEFAULT_EXTENSION, nodeManager->ConvertToSaveData());
+        else if (result == 2)
+            nodeManager->LoadSaveData(saveLoadManager->LoadFromFile(textToChange + DEFAULT_EXTENSION));
+        
+        
         EndDrawing();
     }
 
-    saveLoadManager->SaveToFile(DEFAULT_FILEPATH, nodeManager->ConvertToSaveData());
+    //saveLoadManager->SaveToFile(DEFAULT_FILEPATH, nodeManager->ConvertToSaveData());
 
     // De-Initialization
     delete nodeManager;

@@ -10,6 +10,7 @@ NodeManager::~NodeManager()
 	{
 		delete mNodeList[i];
 	}
+	mNodeList.clear();
 }
 
 INode* NodeManager::MouseOnNode(Vector2 mousePos)
@@ -132,13 +133,14 @@ bool NodeManager::LoadSaveData(NodeSaveData data)
 {
 	if (data.empty())
 		return false;
-
+	
 	NodeBuilder nodeBuilder;
 
 	for (int i = 0; i < mNodeList.size(); i++)
 	{
 		delete mNodeList[i];
 	}
+	mNodeList.clear();
 
 	std::queue<std::string> dataQ;
 
