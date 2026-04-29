@@ -1,7 +1,10 @@
-# Raylib C/C++ Template
-Game template for [Raylib](https://www.raylib.com/index.html) and Visual Studio (tested on VS2019, should work on 2022 too)
+# Node-based Graph Editor
+Implemented using Raylib in C++
 
-This template should work out-of-the-box. Just download the repo and open `raylib-template.sln`.
+Currently supports saving and loading a single graph at a time.
+### Switching to a new Graph
+- Move or rename 'graph-save.txt'
+- Reload the editor and you should have an empty graph to work with.
 
 ### Building from command line
 You don't have to open VS to build the project. Just run `msbuild raylib-template.sln`.\
