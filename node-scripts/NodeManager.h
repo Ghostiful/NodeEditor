@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <queue>
 #include <comutil.h>
+#include <atlconv.h>
 
 
 const std::string NEXT_NODE_TOKEN = "--nnt--";
