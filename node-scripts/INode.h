@@ -68,7 +68,7 @@ public:
 
 	/// helpers
 	bool GetConnectorFromGUID(GUID id, OUT Connector con);
-	void ReconnectAllChildren();
+	void ReconnectAllChildren(std::vector<INode*> children);
 
 	// Drawing
 	void DrawNode();

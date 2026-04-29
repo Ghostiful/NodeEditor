@@ -27,6 +27,8 @@ public:
 	std::vector<INode*> mNodeList;
 	std::vector<NodeConnection> mConnections;
 
+	//std::unordered_map<GUID, INode*> mNodeMap;
+
 	// constructors
 	NodeManager();
 
@@ -37,6 +39,9 @@ public:
 	INode* MouseOnNode(Vector2 mousePos);
 	INode* MouseOnConnector(Vector2 mousePos);
 	INode* MouseOnInConnector(Vector2 mousePos);
+	INode* GetNodeFromGUID(GUID id);
+	std::vector<INode*> GetChildListFromGUIDList(std::vector<GUID> idList);
+	void ReconnectAllNodes();
 
 	// drawing
 	void DrawAllNodes();

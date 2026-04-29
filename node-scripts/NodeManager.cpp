@@ -48,6 +48,37 @@ INode* NodeManager::MouseOnInConnector(Vector2 mousePos)
 	return nullptr;
 }
 
+INode* NodeManager::GetNodeFromGUID(GUID id)
+{
+	for (int i = 0; i < mNodeList.size(); i++)
+	{
+		if (mNodeList[i]->GetInputGUID() == id)
+			return mNodeList[i];
+	}
+	
+	return nullptr;
+}
+
+std::vector<INode*> NodeManager::GetChildListFromGUIDList(std::vector<GUID> idList)
+{
+	std::vector<INode*> nodeList;
+	for (auto id : idList)
+	{
+		INode* n = GetNodeFromGUID(id);
+		if (n != nullptr)
+			nodeList.push_back(n);
+	}
+	return nodeList;
+}
+
+void NodeManager::ReconnectAllNodes()
+{
+	for (INode* n : mNodeList)
+	{
+		n->ReconnectAllChildren(GetChildListFromGUIDList(n->mChildGUIDs));
+	}
+}
+
 void NodeManager::DrawAllNodes()
 {
 	for (int i = 0; i < mNodeList.size(); i++)
@@ -58,12 +89,7 @@ void NodeManager::DrawAllNodes()
 
 void NodeManager::DrawAllConnections()
 {
-	/*for (int i = 0; i < mConnections.size(); i++)
-	{
-		DrawLineBezier(mConnections[i].startNode->mConnectorPos, mConnections[i].endNode->mConnectorPos, 2, WHITE);
-	}*/
-
-	for (auto node : mNodeList)
+	for (INode* node : mNodeList)
 	{
 		node->DrawConnections();
 	}
@@ -159,5 +185,6 @@ bool NodeManager::LoadSaveData(NodeSaveData data)
 		dataQ.pop();
 	}
 
+	ReconnectAllNodes();
 	return true;
 }

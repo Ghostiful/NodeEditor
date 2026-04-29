@@ -122,14 +122,9 @@ bool INode::GetConnectorFromGUID(GUID id, OUT Connector con)
 	return false;
 }
 
-void INode::ReconnectAllChildren()
+void INode::ReconnectAllChildren(std::vector<INode*> children)
 {
-	if (!HasChild())
-		return;
-	for (auto id : mChildGUIDs)
-	{
-
-	}
+	mChildren = children;
 }
 
 void INode::DrawNode()
