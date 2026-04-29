@@ -29,6 +29,15 @@
     <ClInclude Include="node-scripts\NodeManager.h" />
     <ClInclude Include="node-scripts\SaveLoadManager.h" />
     <ClInclude Include="raylib_win64_msvc16\include\fix_win32_compatibility.h" />
+    <ClInclude Include="raylib_win64_msvc16\include\raygui.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="raylib_win64_msvc16\lib\raylib.dll" />
+    <None Include="run-editor.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="raylib_win64_msvc16\lib\raylib.lib" />
+    <Library Include="raylib_win64_msvc16\lib\raylibdll.lib" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -92,7 +101,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\raylib_win64_msvc16\include</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(SolutionDir)\raylib_win64_msvc16\lib</LibraryPath>
+    <LibraryPath>$(WindowsSDK_LibraryPath_x64);$(VC_LibraryPath_x64);C:\Users\izzyr\Desktop\NodeEditor\raylib_win64_msvc16\lib;C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\lib\x64</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>

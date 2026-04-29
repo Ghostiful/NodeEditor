@@ -12,14 +12,14 @@ const float DEFAULT_NODE_HEIGHT = 100;
 const float DEF_NODE_WIDTH = 200;
 const float DEF_LABEL_HEIGHT = 25;
 const float CONNECTOR_RADIUS = 10;
-const float BORDER_WIDTH = 5;
+const float N_BORDER_WIDTH = 5;
 
-const enum NodeType
-{
-	BASE,
-	IO,
-	INPUT_ONLY
-};
+//const enum NodeType
+//{
+//	BASE,
+//	IO,
+//	INPUT_ONLY
+//};
 
 const enum ConnectorType
 {

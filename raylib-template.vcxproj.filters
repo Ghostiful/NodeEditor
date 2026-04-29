@@ -41,5 +41,18 @@
     <ClInclude Include="raylib_win64_msvc16\include\fix_win32_compatibility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="raylib_win64_msvc16\include\raygui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="run-editor.bat">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="raylib_win64_msvc16\lib\raylib.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="raylib_win64_msvc16\lib\raylib.lib" />
+    <Library Include="raylib_win64_msvc16\lib\raylibdll.lib" />
   </ItemGroup>
 </Project>

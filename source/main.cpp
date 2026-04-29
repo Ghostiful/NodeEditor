@@ -3,6 +3,8 @@
 #include "../node-scripts/INode.h"
 #include "../node-scripts/NodeManager.h"
 #include "../node-scripts/SaveLoadManager.h"
+#define RAYGUI_IMPLEMENTATION
+#include "raygui.h"
 
 int main() {
     // Initialization
