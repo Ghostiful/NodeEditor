@@ -29,6 +29,7 @@ int main() {
             nodeBuilder->BuildPosition(GetMousePosition());
             nodeBuilder->BuildName("New Node");
             nodeBuilder->BuildText("Body Text");
+            nodeBuilder->BuildConnectors();
 
             INode* newNode = nodeBuilder->BuildNode();
             nodeBuilder->ClearNodePtr();

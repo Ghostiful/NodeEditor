@@ -61,12 +61,21 @@ NodeSaveData NodeManager::ConvertToSaveData()
 		data.push_back(std::to_string(mNodeList[i]->mPosition.y));
 		data.push_back(mNodeList[i]->mName);
 		data.push_back(mNodeList[i]->mText);
+
+		LPOLESTR str;
+		HRESULT res = StringFromCLSID(mNodeList[i]->mInConnector.id, &str);
+		USES_CONVERSION;
+		std::string s = OLE2A(str);
+		data.push_back(s);
+
+		res = StringFromCLSID(mNodeList[i]->mOutConnector.id, &str);
+		s = OLE2A(str);
+		data.push_back(s);
+
 		for (int j = 0; j < mNodeList[i]->mChildren.size(); j++)
 		{
 			LPOLESTR str;
 			HRESULT res = StringFromCLSID(mNodeList[i]->mChildren[j]->mInConnector.id, &str);
-			/*_bstr_t wrapper(str);
-			std::string s = (const char*)wrapper;*/
 			USES_CONVERSION;
 			std::string s = OLE2A(str);
 			data.push_back(s);
@@ -109,16 +118,23 @@ void NodeManager::LoadSaveData(NodeSaveData data)
 		nodeBuilder.BuildText(dataQ.front());
 		dataQ.pop();
 
+		std::string str = dataQ.front();
+		USES_CONVERSION;
+		LPOLESTR sIn = A2OLE(str.c_str());
+		dataQ.pop();
+		str = dataQ.front();
+		LPOLESTR sOut = A2OLE(str.c_str());
+		nodeBuilder.BuildConnectors(sIn, sOut);
+		dataQ.pop();
+
 		while (dataQ.front() != NEXT_NODE_TOKEN)
 		{
 			std::string str = dataQ.front();
-			/*_bstr_t bstr(str.c_str());
-			const OLECHAR* oleStr = (const OLECHAR*)bstr;*/
-			USES_CONVERSION;
 			LPOLESTR s = A2OLE(str.c_str());
 			GUID id;
 			HRESULT res = CLSIDFromString(s, &id);
 			nodeBuilder.AddChildGUID(id);
+			dataQ.pop();
 		}
 
 		mNodeList.push_back(nodeBuilder.BuildNode());

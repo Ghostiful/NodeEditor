@@ -118,7 +118,7 @@ public:
 		mNode->mChildGUIDs.push_back(id);
 	}
 
-	inline void BuildConnectors(const LPOLESTR inID, const LPOLESTR outID)
+	inline void BuildConnectors(LPOLESTR inID, LPOLESTR outID)
 	{
 		HRESULT res = CLSIDFromString(inID, &mNode->mInConnector.id);
 		HRESULT res2 = CLSIDFromString(outID, &mNode->mOutConnector.id);
